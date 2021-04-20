@@ -71,6 +71,9 @@ int main(void)
         if (printResult)
         {
             printResult = false;
+            
+            LED0_Toggle();
+            
             printf("Threshold Exceeded!\n\r");
             printf("ADCC Result: %d\n\r", ADCC_GetConversionResult());
             printf("Prev. Thresholds: %d to %d\n\r", 

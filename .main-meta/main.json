@@ -4,27 +4,27 @@
     "content": {
         "metaDataVersion": "1.1.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f57q43-hysteresis-adcc-mplab-mcc",
-        "version": "",
-        "displayName": "",
+        "version": "1.0.0",
+        "displayName": "Adding Hysteresis to the ADCC on PIC18F57Q43",
         "projectName": "pic18f57q43-hysteresis-adcc-mplab-mcc",
-        "shortDescription": "",
+        "shortDescription": "In this demo, learn how to use the ADCC to add hysteresis to the result interrupts.",
         "ide": {
             "name": "MPLAB X",
-            "semverRange": ""
+            "semverRange": ">=5.45.0"
         },
         "compiler": [
             {
                 "name": "XC8",
-                "semverRange": ""
+                "semverRange": "^2.30.0"
             }
         ],
         "dfp": {
-            "name": "",
-            "semverRange": ""
+            "name": "PIC18F-Q_DFP",
+            "semverRange": "^1.11.185"
         },
         "configurator": {
-            "name": "",
-            "semverRange": ""
+            "name": "MCC",
+            "semverRange": ">=4.1.0"
         },
         "device": {
             "metaDataVersion": "1.0.0",
@@ -32,16 +32,30 @@
             "content": {
                 "metaDataVersion": "1.0.0",
                 "category": "com.microchip.device",
-                "name": "",
+                "name": "PIC18F57Q43",
                 "versionRange": "*"
             }
         },
-        "author": "",
+        "author": "Microchip",
         "subcategories": [
+          "MCC",
+          [
+             "Peripherals", "UART"
+          ],
+          [
+             "Peripherals", "ADCC"
+          ],
+          [
+             "Peripherals", "TMR2"
+          ]
         ],
         "peripherals": [
+          "UART", "ADCC", "TMR2"
         ],
         "keywords": [
+          "Melody",
+          "Curiosity Nano",
+          "MCC"
         ],
         "additionalData": {
             "longDescription": {

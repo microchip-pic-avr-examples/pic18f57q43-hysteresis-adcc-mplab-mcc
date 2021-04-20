@@ -1,41 +1,84 @@
 <!-- Please do not change this logo with link -->
 [![MCHP](images/microchip.png)](https://www.microchip.com)
 
-# Update the title for pic18f57q43-hysteresis-adcc-mplab-mcc here
+# Adding Hysteresis to the ADCC on PIC18F57Q43
 
-<!-- This is where the introduction to the example goes, including mentioning the peripherals used -->
+In this application, learn how to use the computation features of the Analog-to-Digital Converter with Computation (ADCC) to implement hysteresis in threshold interrupts in the PIC18F57Q43 Microcontroller. 
 
 ## Related Documentation
 
-<!-- Any information about an application note or tech brief can be linked here. Use unbreakable links!
-     In addition a link to the device family landing page and relevant peripheral pages as well:
-     - [AN3381 - Brushless DC Fan Speed Control Using Temperature Input and Tachometer Feedback](https://microchip.com/00003381/)
-     - [PIC18F-Q10 Family Product Page](https://www.microchip.com/design-centers/8-bit/pic-mcus/device-selection/pic18f-q10-product-family) -->
+* [PIC18F57Q43 Microcontroller](https://www.microchip.com/wwwproducts/en/PIC18F57Q43?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
 
 ## Software Used
 
-<!-- All software used in this example must be listed here. Use unbreakable links!
-     - MPLAB® X IDE 5.30 or newer [(microchip.com/mplab/mplab-x-ide)](http://www.microchip.com/mplab/mplab-x-ide)
-     - MPLAB® XC8 2.10 or a newer compiler [(microchip.com/mplab/compilers)](http://www.microchip.com/mplab/compilers)
-     - MPLAB® Code Configurator (MCC) 3.95.0 or newer [(microchip.com/mplab/mplab-code-configurator)](https://www.microchip.com/mplab/mplab-code-configurator)
-     - MPLAB® Code Configurator (MCC) Device Libraries PIC10 / PIC12 / PIC16 / PIC18 MCUs [(microchip.com/mplab/mplab-code-configurator)](https://www.microchip.com/mplab/mplab-code-configurator)
-     - Microchip PIC18F-Q Series Device Support (1.4.109) or newer [(packs.download.microchip.com/)](https://packs.download.microchip.com/) -->
+* [MPLAB® X IDE v5.45](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
+* [MPLAB XC8 v2.31](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
+* [MPLAB Code Configuration v4.1.0 or newer](https://www.microchip.com/mplab/mplab-code-configurator?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
+  * Melody Library v1.37.23
+* [Microchip PIC18F-Q Device Support v1.11.185](https://packs.download.microchip.com/)
+* [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github) or other serial terminal
 
 ## Hardware Used
 
-<!-- All hardware used in this example must be listed here. Use unbreakable links!
-     - PIC18F47Q10 Curiosity Nano [(DM182029)](https://www.microchip.com/Developmenttools/ProductDetails/DM182029)
-     - Curiosity Nano Base for Click boards™ [(AC164162)](https://www.microchip.com/Developmenttools/ProductDetails/AC164162)
-     - POT Click board™ [(MIKROE-3402)](https://www.mikroe.com/pot-click) -->
+* [PIC18F57Q43 Curiosity Nano (DM164150)](https://www.microchip.com/developmenttools/ProductDetails/DM164150?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
+* Breadboard
+* Power Supply or Potentiometer (recommended 10k&#8486; )
+  * Note: Demo is functional without a connected source due to random noise, but this is **not recommended.**
 
 ## Setup
 
-<!-- Explain how to connect hardware and set up software. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
+| Pin Name | Function
+| -------- | --------
+| RA0      | Analog Input
+| RF0      | UART TX
+| RF1      | UART RX (unused, but reserved)
+| RF3      | LED0
 
-## Operation
+### Potentiometer Wiring
 
-<!-- Explain how to operate the example. Depending on complexity, step-by-step instructions and/or tables and/or images can be used -->
+The potentiometer is used as a voltage divider to provide a variable input source for demonstration purposes. To setup, connect one end of the potentiometer to the microcontroller's V<sub>DD</sub> and the other end to V<sub>SS</sub>. Connect the tap of the potentiometer to pin RA0. The diagram below illustrates this wiring.
+
+![Wiring Diagram](./images/wiring.png)
+
+## Theory of Operation
+
+This example operates based on the setpoint (`ADSTPT`) and the threshold (`ADLTH` and `ADUTH`) registers inside the ADCC. The setpoint sets the "center" of the hysteresis, while the threshold registers set the width of the function (in bits). By default, the width of the hysteresis is set to 8 bits, but this can be adjusted as needed.
+
+*Configuration of the Threshold and Error*  
+![Computation Settings](./images/computationSettings.PNG)
+
+To trigger an interrupt, the difference between a result (`ADRES` or `ADFLTR`) must be greater than or less than the number of bits set by the thresholds. If this is true, the threshold test will trigger the threshold interrupt. This example uses the interrupt to update the setpoint, however an alternative method using a Direct Memory Access (DMA) channel is shown in the [Voltage-to-Frequency Converter](https://github.com/microchip-pic-avr-examples/pic18f57q43-v-to-f-mplab-mcc).
+
+## Implementation
+
+In this example, the ADCC has been setup in basic single conversion mode with Timer 2 (TMR2) used as the conversion trigger. Timer 2 is a 1 Hz astable timer that triggers a conversion once per second. If the threshold interrupt occurs, a flag is set to trigger a debug print. UART 1 is used to print messages to a serial terminal (such as [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)) at **9600 baud, no parity, 1 stop bit.**
+
+*Settings used for the ADCC*  
+![ADCC Settings](./images/ADCCsettings.PNG)  
+
+---  
+*Settings used by Timer 2*  
+![Timer 2 Settings](./images/TMR2Settings.PNG)  
+
+---  
+*Settings used by UART 1*  
+![UART 1 Settings](./images/UARTSettings.PNG)
+
+
+## Tuning the Example  
+
+### Reducing ADCC Acquisition Time
+
+For the most compatibility out-of-the-box, the ADCC acquisition time has been maxed out. This value can be reduced to match the source impedance of the voltage source, which speeds up the conversion.
+
+### Using an Average / Burst-Average
+
+This example is compatible with averaging or burst-averages, but it requires a tweak to the error calculation mode set in `ADCON3`. Instead of using `ADRES - ADSTPT` for calculating the difference, the mode should be in `ADFLTR - ADSTPT`.
+
+### Compatibility with the ADCCC
+
+This example is expected to be compatible with the Analog-to-Digital Converter with Computation and Context (ADCCC), however a few adjustments to the example are likely to be required.
 
 ## Summary
 
-<!-- Summarize what the example has shown -->
+This example demonstrates a way to add hysteresis using the ADCC's threshold interrupts.

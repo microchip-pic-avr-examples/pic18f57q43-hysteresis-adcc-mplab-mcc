@@ -5,6 +5,7 @@
 /**/.generated_files/*
 
 /**/[Ff]ree/production/*
-/**/[Pp]ro/production/*
 !/**/[Ff]ree/production/*.hex
+
+/**/[Pp]ro/production/*
 !/**/[Pp]ro/production/*.hex
