@@ -3,7 +3,7 @@
 
 # Adding Hysteresis to the ADCC on PIC18F57Q43
 
-In this application, learn how to use the computation features of the Analog-to-Digital Converter with Computation (ADCC) to implement hysteresis in threshold interrupts in the PIC18F57Q43 Microcontroller.
+This example shows how to use the computation features of the Analog-to-Digital Converter with Computation (ADCC) to implement hysteresis in the ADCC's threshold interrupts. The PIC18F57Q43 Curiosity Nano is used in this implementation.
 
 ## Related Documentation
 
@@ -17,6 +17,7 @@ In this application, learn how to use the computation features of the Analog-to-
   * Melody Library v1.37.23
 * [Microchip PIC18F-Q Device Support v1.11.185](https://packs.download.microchip.com/)
 * [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github) or other serial terminal
+  * UART Settings: 9600 Baud, No Parity, 1 Stop Bit
 
 ## Hardware Used
 
@@ -34,6 +35,8 @@ In this application, learn how to use the computation features of the Analog-to-
 | RF1      | UART RX (unused, but reserved)
 | RF3      | LED0
 
+Note: RF0, RF1, and RF3 are built-in to the Curiosity Nano Development Kit.
+
 ### Potentiometer Wiring
 
 The potentiometer is used as a voltage divider to provide a variable input source for demonstration purposes. To setup, connect one end of the potentiometer to the microcontroller's V<sub>DD</sub> and the other end to V<sub>SS</sub>. Connect the tap of the potentiometer to pin RA0. The diagram below illustrates this wiring.
@@ -47,21 +50,20 @@ This example operates based on the setpoint (`ADSTPT`) and the threshold (`ADLTH
 *Configuration of the Threshold and Error*  
 ![Computation Settings](./images/computationSettings.PNG)  
 
-To trigger an interrupt, the difference between a result (`ADRES` or `ADFLTR`) must be greater than or less than the number of bits set by the thresholds. If this is true, the threshold test will trigger the threshold interrupt. This example uses the interrupt to update the setpoint, however an alternative method using a Direct Memory Access (DMA) channel is shown in the [Voltage-to-Frequency Converter](https://github.com/microchip-pic-avr-examples/pic18f57q43-v-to-f-mplab-mcc).
+To trigger an interrupt, the difference between a result (`ADRES` or `ADFLTR`) must be greater than or less than the number of bits set by the thresholds. If this is true, the threshold test will trigger the threshold interrupt. This example uses the ISR to update the setpoint, however an alternative method using a Direct Memory Access (DMA) channel is shown in the [Voltage-to-Frequency Converter](https://github.com/microchip-pic-avr-examples/pic18f57q43-v-to-f-mplab-mcc).
 
 ## Implementation
 
-In this example, the ADCC has been setup in basic single conversion mode with Timer 2 (TMR2) used as the conversion trigger. Timer 2 is a 1 Hz astable timer that triggers a conversion once per second. If the threshold interrupt occurs, a flag is set to trigger a debug print. UART 1 is used to print messages to a serial terminal (such as [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)) at **9600 baud, no parity, 1 stop bit.**
+In this example, the ADCC has been setup in basic single conversion mode with Timer 2 (TMR2) used as the conversion trigger. Timer 2 is a 1 Hz astable timer that triggers a conversion once per second. If the threshold interrupt occurs, a flag is set to trigger a print to the UART. UART 1 prints the messages to a serial terminal such as [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github) at **9600 baud, no parity, and 1 stop bit.**
 
-*Settings used for the ADCC*  
+### Settings used for the ADCC  
 ![ADCC Settings](./images/ADCCSettings.PNG)  
 
----  
-*Settings used by Timer 2*  
+### Settings used by Timer 2  
 ![Timer 2 Settings](./images/TMR2Settings.PNG)  
 
----  
-*Settings used by UART 1*  
+
+### Settings used by UART 1
 ![UART 1 Settings](./images/UARTSettings.PNG)
 
 
@@ -69,15 +71,15 @@ In this example, the ADCC has been setup in basic single conversion mode with Ti
 
 ### Reducing ADCC Acquisition Time
 
-For the most compatibility out-of-the-box, the ADCC acquisition time has been maxed out. This value can be reduced to match the source impedance of the voltage source, which speeds up the conversion.
+To ensure compatibility with varying signal sources out-of-the-box, the ADCC acquisition time has been maxed out. This value can be reduced depending on the internal impedance of the voltage source, which will speeds up the conversion.
 
 ### Using an Average / Burst-Average
 
-This example is compatible with averaging or burst-averages, but it requires a tweak to the error calculation mode set in `ADCON3`. Instead of using `ADRES - ADSTPT` for calculating the difference, the mode should be in `ADFLTR - ADSTPT`.
+This example can also be used with averaging or burst-averages modes, but it requires a tweak to the error calculation mode set in `ADCON3`. Instead of using `ADRES - ADSTPT` for calculating the difference, the mode should be in `ADFLTR - ADSTPT`.
 
 ### Compatibility with the ADCCC
 
-This example is expected to be compatible with the Analog-to-Digital Converter with Computation and Context (ADCCC), however a few adjustments to the example are likely to be required.
+This example should be compatible with the Analog-to-Digital Converter with Computation and Context Switching (ADCCC), however a few tweaks to the example due to added features may be required.
 
 ## Summary
 
