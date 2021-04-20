@@ -54,7 +54,7 @@ To trigger an interrupt, the difference between a result (`ADRES` or `ADFLTR`) m
 In this example, the ADCC has been setup in basic single conversion mode with Timer 2 (TMR2) used as the conversion trigger. Timer 2 is a 1 Hz astable timer that triggers a conversion once per second. If the threshold interrupt occurs, a flag is set to trigger a debug print. UART 1 is used to print messages to a serial terminal (such as [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)) at **9600 baud, no parity, 1 stop bit.**
 
 *Settings used for the ADCC*  
-![ADCC Settings](./images/ADCCsettings.PNG)  
+![ADCC Settings](./images/ADCCSettings.PNG)  
 
 ---  
 *Settings used by Timer 2*  
