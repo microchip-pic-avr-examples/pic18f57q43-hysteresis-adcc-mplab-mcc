@@ -3,7 +3,7 @@
 
 # Adding Hysteresis to the ADCC on PIC18F57Q43
 
-In this application, learn how to use the computation features of the Analog-to-Digital Converter with Computation (ADCC) to implement hysteresis in threshold interrupts in the PIC18F57Q43 Microcontroller. 
+In this application, learn how to use the computation features of the Analog-to-Digital Converter with Computation (ADCC) to implement hysteresis in threshold interrupts in the PIC18F57Q43 Microcontroller.
 
 ## Related Documentation
 
@@ -45,7 +45,7 @@ The potentiometer is used as a voltage divider to provide a variable input sourc
 This example operates based on the setpoint (`ADSTPT`) and the threshold (`ADLTH` and `ADUTH`) registers inside the ADCC. The setpoint sets the "center" of the hysteresis, while the threshold registers set the width of the function (in bits). By default, the width of the hysteresis is set to 8 bits, but this can be adjusted as needed.
 
 *Configuration of the Threshold and Error*  
-![Computation Settings](./images/computationSettings.PNG)
+![Computation Settings](./images/computationSettings.PNG)  
 
 To trigger an interrupt, the difference between a result (`ADRES` or `ADFLTR`) must be greater than or less than the number of bits set by the thresholds. If this is true, the threshold test will trigger the threshold interrupt. This example uses the interrupt to update the setpoint, however an alternative method using a Direct Memory Access (DMA) channel is shown in the [Voltage-to-Frequency Converter](https://github.com/microchip-pic-avr-examples/pic18f57q43-v-to-f-mplab-mcc).
 
