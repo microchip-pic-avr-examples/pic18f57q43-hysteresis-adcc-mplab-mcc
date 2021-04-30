@@ -7,7 +7,7 @@
         "version": "1.0.0",
         "displayName": "Adding Hysteresis to the ADCC on PIC18F57Q43",
         "projectName": "pic18f57q43-hysteresis-adcc-mplab-mcc",
-        "shortDescription": "In this demo, learn how to use the ADCC to add hysteresis to the result interrupts.",
+        "shortDescription": "In this demo, learn how to use the ADCC's features to implement hysteresis to reduce the number of interrupts generated.",
         "ide": {
             "name": "MPLAB X",
             "semverRange": ">=5.45.0"
