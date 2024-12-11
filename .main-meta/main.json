@@ -2,7 +2,7 @@
     "metaDataVersion": "1.0.0",
     "category": "com.microchip.ide.project",
     "content": {
-        "metaDataVersion": "1.1.0",
+        "metaDataVersion": "1.3.0",
         "name": "com.microchip.mcu8.mplabx.project.pic18f57q43-hysteresis-adcc-mplab-mcc",
         "version": "1.1.0",
         "displayName": "Adding Hysteresis to the ADCC on PIC18F57Q43",
@@ -37,18 +37,6 @@
             }
         },
         "author": "Microchip",
-        "subcategories": [
-          "MCC",
-          [
-             "Peripherals", "UART"
-          ],
-          [
-             "Peripherals", "ADCC"
-          ],
-          [
-             "Peripherals", "TMR2"
-          ]
-        ],
         "peripherals": [
           "UART", "ADCC", "TMR2"
         ],
