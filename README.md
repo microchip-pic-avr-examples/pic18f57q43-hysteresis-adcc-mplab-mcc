@@ -9,12 +9,12 @@ This example shows how to use the computation features of the Analog-to-Digital 
 * [PIC18F57Q43 Microcontroller](https://www.microchip.com/wwwproducts/en/PIC18F57Q43?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
 
 ## Software Used  
-* [MPLAB® X IDE v5.45 or newer](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
-* [MPLAB XC8 v2.31 or newer](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
+* [MPLAB® X IDE v6.20 or newer](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-x-ide?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
+* [MPLAB XC8 v3.0 or newer](https://www.microchip.com/en-us/development-tools-tools-and-software/mplab-xc-compilers?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
 * [MPLAB Code Configuration v4.1.0 or newer](https://www.microchip.com/mplab/mplab-code-configurator?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github)
   * Melody Library v1.37.23
 * [Microchip PIC18F-Q Device Support v1.11.185](https://packs.download.microchip.com/)
-* [MPLAB Data Visualizer](https://www.microchip.com/en-us/development-tools-tools-and-software/embedded-software-center/mplab-data-visualizer?utm_source=GitHub&utm_medium=TextLink&utm_campaign=MCU8_MMTCha_PIC18FQ43&utm_content=pic18f57q43-hysteresis-adcc-mplab-mcc-github) or other serial terminal
+* MPLAB Data Visualizer or other serial terminal
   * UART Settings: 9600 Baud, No Parity, 1 Stop Bit
 
 ## Hardware Used  
